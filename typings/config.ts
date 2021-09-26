@@ -38,9 +38,10 @@ interface BankConfig {
 }
 
 interface DatabaseConfig {
+  useIdentifierPrefix: boolean;
   playerTable: string;
   identifierColumn: string;
-  useIdentifierPrefix: boolean;
+  numberColumn: string;
   profileQueries: boolean;
 }
 
