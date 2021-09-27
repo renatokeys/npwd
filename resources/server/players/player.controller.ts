@@ -4,6 +4,7 @@ import { config } from '../server';
 import { PlayerAddData } from './player.interfaces';
 import { playerLogger } from './player.utils';
 import { PhoneEvents } from '../../../typings/phone';
+import { onNetPromise } from '../utils/PromiseNetEvents/onNetPromise';
 
 onNet(PhoneEvents.FETCH_CREDENTIALS, () => {
   const src = getSource();
@@ -38,6 +39,15 @@ on('playerDropped', () => {
   } catch (e) {
     playerLogger.debug(`${src} failed to unload, likely was never loaded in the first place.`);
   }
+});
+
+onNetPromise<void, boolean>(PhoneEvents.CHECK_READY, (reqObj, resp) => {
+  const player = PlayerService.getPlayer(reqObj.source);
+
+  resp({
+    status: 'ok',
+    data: !!player,
+  });
 });
 
 // Can use this to debug the player table if needed. Disabled by default

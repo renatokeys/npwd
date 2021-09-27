@@ -6,13 +6,14 @@
     "exportName": "myCheckerFunction"
   },
   "general": {
+    "generatePhoneNumber": true,
     "useDashNumber": true,
-    "enableMultiChar": false
+    "enableMultiChar": true
   },
   "database": {
     "useIdentifierPrefix": false,
-    "playerTable": "users",
-    "identifierColumn": "identifier",
+    "playerTable": "players",
+    "identifierColumn": "citizenid",
     "profileQueries": true
   },
   "twitter": {

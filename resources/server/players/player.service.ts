@@ -136,29 +136,28 @@ class _PlayerService {
    * Instantiate a basic Player instance from the constructor
    * @param src - The player source
    * @param identifier - The primary identifier
-   *
+   * @param phone_number
    */
 
   async createNewPlayer({
     src,
     identifier,
+    phoneNumber,
   }: {
     src: number;
     identifier: string;
+    phoneNumber?: string;
   }): Promise<Player | null> {
     const username = GetPlayerName(src.toString());
 
-    const phoneNumber = await generatePhoneNumber(identifier).catch((e) => {
-      playerLogger.error(`Failed to generate phone number for source: ${src}. Error: ${e.message}`);
-      return null;
-    });
+    const playerNumber = phoneNumber || (await generatePhoneNumber(identifier));
 
-    if (!phoneNumber) return null;
+    if (!phoneNumber) throw new Error('Phone number was not provided and generation failed');
 
     return new Player({
       source: src,
       identifier,
-      phoneNumber,
+      phoneNumber: playerNumber,
       username,
     });
   }
@@ -169,8 +168,18 @@ class _PlayerService {
    * @param NewPlayerDTO - A DTO with all the new info required to instantiate a new player
    *
    */
-  async handleNewPlayerEvent({ source: src, identifier, firstname, lastname }: PlayerAddData) {
-    const player = await this.createNewPlayer({ src, identifier: identifier.toString() });
+  async handleNewPlayerEvent({
+    source: src,
+    identifier,
+    firstname,
+    lastname,
+    phoneNumber,
+  }: PlayerAddData) {
+    const player = await this.createNewPlayer({
+      src,
+      identifier: identifier.toString(),
+      phoneNumber,
+    });
 
     if (firstname) player.setFirstName(firstname);
     if (lastname) player.setLastName(lastname);
@@ -180,7 +189,7 @@ class _PlayerService {
     playerLogger.info(`New NPWD Player added through event (${src}) (${identifier})`);
     playerLogger.debug(player);
 
-    emitNet(PhoneEvents.ON_INIT, src);
+    emitNet(PhoneEvents.SET_PHONE_READY, src);
   }
 
   /**

@@ -2,11 +2,12 @@ import { sendMessage } from '../utils/messages';
 import { PhoneEvents } from '../../typings/phone';
 import { TwitterEvents } from '../../typings/twitter';
 import { MessageEvents } from '../../typings/messages';
-import { config } from './client';
+import { ClUtils, config } from './client';
 import { animationService } from './animations/animation.controller';
 import { RegisterNuiCB } from './cl_utils';
 
 let isPhoneOpen = false;
+let isPhoneReady = false;
 
 const exps = global.exports;
 
@@ -20,9 +21,11 @@ function fetchOnInitialize() {
   emitNet(TwitterEvents.GET_OR_CREATE_PROFILE);
 }
 
-onNet(PhoneEvents.ON_INIT, () => {
-  fetchOnInitialize();
-});
+if (!config.general.enableMultiChar) {
+  onNet(PhoneEvents.ON_INIT, () => {
+    fetchOnInitialize();
+  });
+}
 
 RegisterKeyMapping('phone', 'Open Phone', 'keyboard', 'f1');
 
@@ -37,6 +40,27 @@ const getCurrentGameTime = () => {
 
   return `${hour}:${minute}`;
 };
+
+// Phone ready handling
+RegisterNuiCB(PhoneEvents.CHECK_READY, async (_, cb) => {
+  try {
+    const readyStatus = await ClUtils.emitNetPromise(PhoneEvents.CHECK_READY);
+
+    isPhoneReady = readyStatus;
+
+    if (readyStatus) {
+      fetchOnInitialize();
+    }
+
+    return readyStatus;
+  } catch (e) {
+    cb({ status: 'error', errorMsg: 'TIMED_OUT' });
+  }
+});
+
+onNet(PhoneEvents.SET_PHONE_READY, (readyStatus: boolean) => {
+  sendMessage('PHONE', PhoneEvents.SET_PHONE_READY, readyStatus);
+});
 
 /* * * * * * * * * * * * *
  *
@@ -75,6 +99,7 @@ RegisterCommand(
   'phone',
   async () => {
     //-- Toggles Phone
+    if (!isPhoneReady) return;
     await togglePhone();
   },
   false,

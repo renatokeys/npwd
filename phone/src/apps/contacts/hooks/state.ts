@@ -3,7 +3,6 @@ import { Contact, ContactEvents } from '../../../../../typings/contact';
 import { fetchNui } from '../../../utils/fetchNui';
 import { ServerPromiseResp } from '../../../../../typings/common';
 import { isEnvBrowser } from '../../../utils/misc';
-import LogDebugEvent from '../../../os/debug/LogDebugEvents';
 import { BrowserContactsState } from '../utils/constants';
 
 export const contactsState = {
@@ -14,7 +13,6 @@ export const contactsState = {
       get: async () => {
         try {
           const resp = await fetchNui<ServerPromiseResp<Contact[]>>(ContactEvents.GET_CONTACTS);
-          LogDebugEvent({ action: 'ContactsFetched', data: resp.data });
           return resp.data;
         } catch (e) {
           if (isEnvBrowser()) {

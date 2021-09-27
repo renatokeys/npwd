@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { ResourceConfig } from '../../../../../typings/config';
+import { isEnvBrowser } from '../../../utils/misc';
 
 export const phoneState = {
   visibility: atom<boolean>({
@@ -13,5 +14,9 @@ export const phoneState = {
   phoneTime: atom<string>({
     key: 'phoneTime',
     default: null,
+  }),
+  playerReady: atom({
+    key: 'playerReady',
+    default: true,
   }),
 };

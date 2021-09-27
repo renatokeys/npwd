@@ -13,6 +13,7 @@ export const usePhoneService = () => {
   const setVisibility = useSetRecoilState(phoneState.visibility);
   const setResourceConfig = useSetRecoilState(phoneState.resourceConfig);
   const setPhoneTime = useSetRecoilState(phoneState.phoneTime);
+  const setPhoneReady = useSetRecoilState(phoneState.playerReady);
 
   const handleOpenApp = useCallback(
     (app: string) => {
@@ -26,6 +27,7 @@ export const usePhoneService = () => {
     [getApp, history],
   );
 
+  useNuiEvent('PHONE', PhoneEvents.SET_PHONE_READY, setPhoneReady);
   useNuiEvent('PHONE', PhoneEvents.SET_VISIBILITY, setVisibility);
   useNuiEvent('PHONE', PhoneEvents.SET_CONFIG, setResourceConfig);
   useNuiEvent('PHONE', PhoneEvents.SET_TIME, setPhoneTime);
