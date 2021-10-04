@@ -216,6 +216,8 @@
     "APPS_MESSAGES_DELETE_CONVERSATION_FAILED": "Failed to delete conversation",
     "APPS_MESSAGES_ME": "Me",
     "APPS_MESSAGES_FETCHED_MESSAGES_FAILED": "Failed to retrieve messages",
+    "APPS_MESSAGE_DELETE_MESSAGE": "Delete message",
+    "APPS_MESSAGES_DELETE_MESSAGE_FAILED": "Failed to delete message",
 
     "APPS_CONTACT_FORM_NAME": "Name",
     "APPS_CONTACT_FORM_NUMBER": "Number",
