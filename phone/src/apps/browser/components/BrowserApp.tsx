@@ -111,7 +111,7 @@ export const BrowserApp: React.FC = () => {
               width: '100%',
               border: 'none',
             }}
-            title="npwd-browser"
+            title="Navegador"
             ref={iframeRef}
           />
         </Box>

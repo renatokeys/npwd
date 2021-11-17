@@ -1,21 +1,21 @@
 {
-  "Locale": "en",
+  "Locale": "pt-br",
   "PhoneAsItem": {
     "enabled": false,
-    "exportResource": "my-core-resource",
-    "exportFunction": "myCheckerFunction"
+    "exportResource": "vicerp_phone",
+    "exportFunction": "phone"
   },
   "general": {
     "useDashNumber": true,
     "enableMultiChar": false
   },
   "database": {
-    "useIdentifierPrefix": false,
-    "playerTable": "users",
+    "useIdentifierPrefix": true,
+    "playerTable": "vrp_user_identities",
     "identifierColumn": "identifier",
     "identifierType": "license",
     "profileQueries": true,
-    "phoneNumberColumn": "phone_number"
+    "phoneNumberColumn": "phone"
   },
   "images": {
     "url": "https://api.imgur.com/3/image",
@@ -24,14 +24,11 @@
     "contentType": "multipart/form-data",
     "authorizationPrefix": "Client-ID",
     "useAuthorization": true,
-    "returnedDataIndexes": [
-      "data",
-      "link"
-    ]
+    "returnedDataIndexes": ["data", "link"]
   },
   "twitter": {
     "showNotifications": true,
-    "generateProfileNameFromUsers": true,
+    "generateProfileNameFromUsers": false,
     "allowEditableProfileName": true,
     "allowDeleteTweets": true,
     "allowReportTweets": true,
@@ -43,7 +40,7 @@
     "maxImages": 3
   },
   "match": {
-    "generateProfileNameFromUsers": true,
+    "generateProfileNameFromUsers": false,
     "allowEditableProfileName": true
   },
   "bank": {
