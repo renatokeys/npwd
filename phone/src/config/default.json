@@ -1,6 +1,6 @@
 {
-  "cellProvider": "AT&T",
-  "defaultLanguage": "en",
+  "cellProvider": "VIVO",
+  "defaultLanguage": "ptbr",
   "wallpapers": [
     {
       "label": "Minimal",
@@ -195,7 +195,7 @@
     "TWITTER_notifyNewFeedTweet": true
   },
   "appSettings": {
-    "browserHomePage": "https://docs.projecterror.dev"
+    "browserHomePage": "https://viceroleplay.com.br/"
   },
   "iconSet": [
     {
