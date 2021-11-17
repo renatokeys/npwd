@@ -209,7 +209,9 @@ export class _TwitterDB {
    * @param identifier - player's identifier
    */
   async getOrCreateProfile(identifier: string): Promise<Profile> {
+    console.log('identificador', identifier);
     const profile = await this.getProfile(identifier);
+    console.log('profile', profile);
     return profile || (await this.createDefaultProfile(identifier));
   }
 
