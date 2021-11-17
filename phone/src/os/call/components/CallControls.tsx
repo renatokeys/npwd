@@ -49,20 +49,21 @@ export const CallControls = ({ isSmall }: { isSmall?: boolean }) => {
 
   // We display only the hang up if the call is accepted
   // or we are the one calling
-  if (call.is_accepted || call.isTransmitter)
-    return (
-      <Box display="flex" justifyContent="center" px={2} my={2}>
-        <StatusIconButton
-          color="error"
-          size={isSmall ? 'small' : 'medium'}
-          onClick={handleEndCall}
-          className={isSmall ? classes.smallIconWrapper : classes.iconWrapper}
-        >
-          <CallEndIcon className={classes.icon} />
-        </StatusIconButton>
-      </Box>
-    );
-
+  if (call) {
+    if (call.is_accepted || call.isTransmitter)
+      return (
+        <Box display="flex" justifyContent="center" px={2} my={2}>
+          <StatusIconButton
+            color="error"
+            size={isSmall ? 'small' : 'medium'}
+            onClick={handleEndCall}
+            className={isSmall ? classes.smallIconWrapper : classes.iconWrapper}
+          >
+            <CallEndIcon className={classes.icon} />
+          </StatusIconButton>
+        </Box>
+      );
+  }
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between" px={2} my={2}>
       <StatusIconButton
