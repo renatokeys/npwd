@@ -222,6 +222,8 @@ class CallsService {
     // lets protect against that
     if (currentCall?.is_accepted) {
       emitNet(CallEvents.WAS_ENDED, currentCall.receiverSource);
+      // End Call for both players
+      emitNet(CallEvents.WAS_ENDED, currentCall.transmitterSource);
     }
     // player who is calling (transmitter)
     resp({ status: 'ok' });
