@@ -81,10 +81,10 @@ export const ListingForm: React.FC = () => {
   };
 
   /*const handleChooseImage = () => {
-		history.push(`/camera?${qs.stringify({
-			referal: encodeURIComponent(pathname + search),
-		})}`)
-	}*/
+    history.push(`/camera?${qs.stringify({
+      referal: encodeURIComponent(pathname + search),
+    })}`)
+  }*/
 
   const handleChooseImage = useCallback(() => {
     history.push(
@@ -102,12 +102,13 @@ export const ListingForm: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <h1>New Listing</h1>
+      <h1>Novo Produto</h1>
       <TextField
         className={classes.input}
         onChange={(e) => setTitle(e.target.value)}
-        label={t('GENERIC.REQUIRED')}
-        placeholder={t('APPS_MARKETPLACE_FORM_TITLE')}
+        label={t('Titulo')}
+        placeholder={t('Titulo')}
+        value={title}
         inputProps={{
           className: classes.textFieldInput,
           maxLength: 25,
@@ -124,12 +125,12 @@ export const ListingForm: React.FC = () => {
           <ImageIcon />
         </div>
         <div>
-          <Button onClick={handleChooseImage}>Choose a image</Button>
+          <Button onClick={handleChooseImage}>Escolha a imagem</Button>
         </div>
       </Box>
       <TextField
         className={classes.input}
-        placeholder={t('APPS_MARKETPLACE_FORM_IMAGE')}
+        placeholder={t('Imagem')}
         value={url}
         onChange={(e) => setUrl(e.currentTarget.value)}
         inputProps={{ className: classes.textFieldInput }}
@@ -141,13 +142,14 @@ export const ListingForm: React.FC = () => {
       <TextField
         className={classes.input}
         onChange={(e) => setDescription(e.target.value)}
-        label={t('GENERIC.REQUIRED')}
-        placeholder={t('APPS_MARKETPLACE_FORM_DESCRIPTION')}
+        label={t('Obrigatorio')}
+        placeholder={t('Descrição')}
         inputProps={{
           className: classes.multilineFieldInput,
           maxLength: 130,
         }}
         style={{ width: '80%' }}
+        value={description}
         size="medium"
         InputLabelProps={{
           shrink: true,
@@ -157,7 +159,7 @@ export const ListingForm: React.FC = () => {
         variant="outlined"
       />
       <Button onClick={addListing} className={classes.postButton} disabled={!areFieldsFilled}>
-        Post
+        Enviar
       </Button>
     </div>
   );
